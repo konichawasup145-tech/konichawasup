@@ -1,22 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Page title</title>
+    <title>Image Map Example</title>
     <style>
         body {
             background-color: #276d64;
             text-align: center;
         }
-</style>
+    </style>
 </head>
 <body>
 
-    <h1>My page</h1>
+    <h1>My Page</h1>
 
-    <img src="https://images.pexels.com/photos/31284696/pexels-photo-31284696.jpeg?cs=srgb&dl=pexels-optical-chemist-340351297-31284696.jpg&fm=jpg" alt="sunflower" style= ""width:150px; height:a50px;"></
-    center>
+    <img src="https://images.pexels.com/photos/31284696/pexels-photo-31284696.jpeg?cs=srgb&dl=pexels-optical-chemist-340351297-31284696.jpg&fm=jpg"
+         alt="Sunflower"
+         width="300"
+         height="300"
+         usemap="#flowermap">
 
-    <a href="page2.html">Page 2</a>
+    <map name="flowermap">
+        <!-- Circular clickable area in the center -->
+        <area shape="circle"
+              coords="150,150,80"
+              href="page2.html"
+              alt="Go to Page 2">
+
+        <!-- Rectangular clickable area at the top -->
+        <area shape="rect"
+              coords="50,20,250,80"
+              href="page3.html"
+              alt="Go to Page 3">
+    </map>
 
 </body>
 </html>
