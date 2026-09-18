@@ -1,5 +1,5 @@
 #include <iostream>
-#include <cstdlib>  
+#include <cstdlib>   
 using namespace std;
 
 int main() {
@@ -8,31 +8,35 @@ int main() {
     string user, pass;
     bool login = false;
 
-    cout << "                          VCMC LOGIN\n";
+    cout << "------------------------VCMC SIGN IN-------------------------\n";
     cout << "                                                             \n";
 
     cout << "Set your username: ";
     cin >> theUsername;
 
     cout << "Set your password: ";
-    system("stty -echo");     
+    system("stty -echo");
     cin >> thePassword;
-    system("stty echo");      
+    system("stty echo");
     cout << endl;
+    
+    cout << "--------------------------------LOGIN------------------------\n";
+    cout << "-------------------------------------------------------------\n";
 
     while (!login) {
         cout << "Enter username: ";
         cin >> user;
 
         cout << "Enter password: ";
-        system("stty -echo");   
+        system("stty -echo");
         cin >> pass;
-        system("stty echo");    
+        system("stty echo");
         cout << endl;
 
-        
-        for (int i = 0; i < pass.length(); i++) {
+        int i = 0;
+        while (i < pass.length()) {
             cout << '*';
+            i++;
         }
         cout << endl;
 
