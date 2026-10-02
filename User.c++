@@ -16,7 +16,7 @@ string maskedInput() {
     return pass;
 }
 
-void userMenu(vector<string>& users, vector<string>& passes, vector<string>& roles) {
+void userMenu(vector<string>& users, vector<string>& passes, vector<string>& roles, vector<string>& creators, const string& currentUser) {
     string choice, nu, np;
 
     do {
@@ -37,6 +37,7 @@ void userMenu(vector<string>& users, vector<string>& passes, vector<string>& rol
             users.push_back(nu);
             passes.push_back(np);
             roles.push_back("User");
+            creators.push_back(currentUser);
 
             cout << "User created successfully.\n";
 
@@ -47,7 +48,8 @@ void userMenu(vector<string>& users, vector<string>& passes, vector<string>& rol
                 cout << "No users registered.\n";
             } else {
                 for (size_t i = 0; i < users.size(); i++) {
-                    cout << users[i] << " - " << roles[i] << endl;
+                    cout << users[i] << " - " << roles[i] 
+                         << " (Created by: " << creators[i] << ")" << endl;
                 }
             }
 
@@ -58,13 +60,14 @@ void userMenu(vector<string>& users, vector<string>& passes, vector<string>& rol
     } while (choice != "3");
 }
 
-void adminMenu(vector<string>& users, vector<string>& passes, vector<string>& roles) {
+void adminMenu(vector<string>& users, vector<string>& passes, vector<string>& roles, vector<string>& creators, vector<string>& adminLog, const string& currentUser) {
     string choice, nu, np;
 
     do {
         cout << "\n--- Super Admin Menu ---\n";
         cout << "1. Create Admin\n";
-        cout << "2. Exit\n";
+        cout << "2. View Admin Log\n";
+        cout << "3. Exit\n";
         cout << "Choose: ";
         cin >> choice;
 
@@ -78,14 +81,29 @@ void adminMenu(vector<string>& users, vector<string>& passes, vector<string>& ro
             users.push_back(nu);
             passes.push_back(np);
             roles.push_back("Admin");
+            creators.push_back(currentUser);
+
+            // Add formatted entry directly to the Admin Log
+            adminLog.push_back("Admin: " + nu + " | Created By: " + currentUser);
 
             cout << "Admin created successfully.\n";
 
-        } else if (choice != "2") {
+        } else if (choice == "2") {
+            cout << "\n--- Dedicated Admin Log ---\n";
+
+            if (adminLog.empty()) {
+                cout << "No admins have been created yet.\n";
+            } else {
+                for (size_t i = 0; i < adminLog.size(); i++) {
+                    cout << i + 1 << ". " << adminLog[i] << endl;
+                }
+            }
+
+        } else if (choice != "3") {
             cout << "Invalid choice.\n";
         }
 
-    } while (choice != "2");
+    } while (choice != "3");
 }
 
 int main() {
@@ -95,6 +113,8 @@ int main() {
     vector<string> users;
     vector<string> passes;
     vector<string> roles;
+    vector<string> creators;
+    vector<string> adminLog; // Dedicated list storing created admin records
 
     string user, pass, choice;
 
@@ -126,7 +146,7 @@ int main() {
             cout << "\nWelcome, " << user
                  << " (Super Account).\n";
 
-            adminMenu(users, passes, roles);
+            adminMenu(users, passes, roles, creators, adminLog, user);
             continue;
         }
 
@@ -141,17 +161,9 @@ int main() {
                      << " (" << roles[i] << ").\n";
 
                 if (roles[i] == "Admin") {
-                    userMenu(users, passes, roles);
+                    userMenu(users, passes, roles, creators, user);
                 }
 
                 break;
             }
         }
-
-        if (!found) {
-            cout << "Incorrect username or password.\n";
-        }
-    }
-
-    return 0;
-}
