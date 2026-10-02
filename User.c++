@@ -83,7 +83,7 @@ void adminMenu(vector<string>& users, vector<string>& passes, vector<string>& ro
             roles.push_back("Admin");
             creators.push_back(currentUser);
 
-            // Add formatted entry directly to the Admin Log
+           
             adminLog.push_back("Admin: " + nu + " | Created By: " + currentUser);
 
             cout << "Admin created successfully.\n";
@@ -114,7 +114,7 @@ int main() {
     vector<string> passes;
     vector<string> roles;
     vector<string> creators;
-    vector<string> adminLog; // Dedicated list storing created admin records
+    vector<string> adminLog; 
 
     string user, pass, choice;
 
@@ -141,7 +141,7 @@ int main() {
         cout << "Password: ";
         pass = maskedInput();
 
-        // Check super admin
+       
         if (user == superUser && pass == superPass) {
             cout << "\nWelcome, " << user
                  << " (Super Account).\n";
@@ -167,3 +167,11 @@ int main() {
                 break;
             }
         }
+
+        if (!found) {
+            cout << "Incorrect username or password.\n";
+        }
+    }
+
+    return 0;
+}
